@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>policy-filter | 나에게 꼭 맞는 정책 찾기</title>
+  <meta name="description" content="연령대, 현재 상황, 관심 분야를 선택하면 나에게 딱 맞는 정부 정책과 지원 서비스를 추천해드려요." />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<section id="page-landing" class="page active">
+  <div class="landing-bg-circle c1"></div>
+  <div class="landing-bg-circle c2"></div>
+  <div class="landing-inner">
+    <div class="brand-badge">
+      <span class="dot"></span>
+      정부 정책 맞춤 추천 서비스
+    </div>
+    <div class="landing-logo">policy<span>-filter</span></div>
+    <p class="landing-tagline">
+      수많은 정책 중에서,<br />나한테 필요한 정책은 무엇일까?
+    </p>
+    <div class="landing-cards">
+      <div class="landing-chip"><span class="ic">🏠</span> 주거비 지원</div>
+      <div class="landing-chip"><span class="ic">💼</span> 취업·창업</div>
+      <div class="landing-chip"><span class="ic">💰</span> 생활비·금융</div>
+      <div class="landing-chip"><span class="ic">📚</span> 교육·학자금</div>
+      <div class="landing-chip"><span class="ic">🌿</span> 건강·마음돌봄</div>
+      <div class="landing-chip"><span class="ic">👶</span> 돌봄·육아</div>
+    </div>
+    <button class="btn-primary" onclick="goToPage('page-input')">
+      알아보러 가기 <span class="arrow">→</span>
+    </button>
+    <p class="landing-footer-note">
+      ✓ 별도 회원가입 없이 · ✓ 무료로 이용 가능 · ✓ 18가지 정책 데이터베이스
+    </p>
+  </div>
+</section>
+
+<!-- ==================== INPUT PAGE ==================== -->
+<section id="page-input" class="page">
+  <div class="input-header">
+    <div class="step-label">📋 나에게 맞는 정책 찾기</div>
+    <h1>몇 가지만 선택해 주시면<br />딱 맞는 정책을 찾아드려요 😊</h1>
+    <p>아래 네 가지 항목을 모두 선택해 주세요. 선택하신 정보는 저장되지 않아요.</p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-labels">
+      <span>선택 진행도</span>
+      <span id="progress-text">0 / 4 완료</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="input-form">
+
+    <!-- CARD 1: Age -->
+    <div class="card" id="card-age">
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-num" id="num-age">1</div>
+          <div>
+            <div class="card-title">연령대를 선택해 주세요</div>
+            <div class="card-subtitle">슬라이더를 움직여 만 나이를 선택해 주세요.</div>
+          </div>
+        </div>
+        <div class="check-badge" id="badge-age">✓ 선택됨</div>
+      </div>
+      <div class="slider-wrap">
+        <div class="slider-info">
+          <div class="age-display">
+            <span class="age-num" id="age-value">25</span>
+            <span class="age-unit">만 세</span>
+          </div>
+          <div class="lifecycle-tag" id="lifecycle-tag">청년</div>
+        </div>
+        <input type="range" id="age-slider" min="1" max="80" value="25"
+               oninput="updateAge(this.value)" aria-label="만 나이 선택" />
+        <div class="slider-ticks">
+          <span>1세</span><span>20세</span><span>40세</span><span>60세</span><span>80세</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Status -->
+    <div class="card" id="card-status">
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-num" id="num-status">2</div>
+          <div>
+            <div class="card-title">현재 활동 상태를 선택해 주세요</div>
+            <div class="card-subtitle">현재 나의 경제·활동 상태와 가장 가까운 것 하나를 골라 주세요.</div>
+          </div>
+        </div>
+        <div class="check-badge" id="badge-status">✓ 선택됨</div>
+      </div>
+      <div class="btn-group" id="group-status">
+        <button class="toggle-btn" onclick="selectSingle('status', '학생')"><span class="ic">🎒</span> 학생 (중·고등/대학·대학원)</button>
+        <button class="toggle-btn" onclick="selectSingle('status', '구직자')"><span class="ic">🔍</span> 구직자</button>
+        <button class="toggle-btn" onclick="selectSingle('status', '직장인·근로자')"><span class="ic">💼</span> 직장인·근로자</button>
+        <button class="toggle-btn" onclick="selectSingle('status', '자영업자·소상공인·프리랜서')"><span class="ic">🏪</span> 자영업자·소상공인·프리랜서</button>
+        <button class="toggle-btn" onclick="selectSingle('status', '무직·은퇴자')"><span class="ic">🌿</span> 무직·은퇴자</button>
+      </div>
+      <div class="error-msg" id="error-status">⚠️ 현재 활동 상태를 선택해 주세요.</div>
+    </div>
+
+    <!-- CARD 3: Situation -->
+    <div class="card" id="card-situation">
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-num" id="num-situation">3</div>
+          <div>
+            <div class="card-title">가구 및 특수 상황을 선택해 주세요</div>
+            <div class="card-subtitle">해당하는 항목을 모두 선택해 주세요. (복수 선택 가능)</div>
+          </div>
+        </div>
+        <div class="check-badge" id="badge-situation">✓ 선택됨</div>
+      </div>
+      <div class="btn-group" id="group-situation">
+        <button class="toggle-btn" onclick="selectMulti('situation', '1인 가구', this)"><span class="ic">🏠</span> 1인 가구</button>
+        <button class="toggle-btn" onclick="selectMulti('situation', '신혼부부·예비부부/임신·출산', this)"><span class="ic">💑</span> 신혼부부·예비부부 / 임신·출산</button>
+        <button class="toggle-btn" onclick="selectMulti('situation', '자녀 양육 중(다자녀 포함)', this)"><span class="ic">👨‍👩‍👧</span> 자녀 양육 중 (다자녀 포함)</button>
+        <button class="toggle-btn" onclick="selectMulti('situation', '한부모·조손 가구', this)"><span class="ic">🤍</span> 한부모·조손 가구</button>
+        <button class="toggle-btn" onclick="selectMulti('situation', '저소득·취약계층', this)"><span class="ic">🌱</span> 저소득·취약계층</button>
+        <button class="toggle-btn" onclick="selectMulti('situation', '장애인·국가유공자', this)"><span class="ic">🌟</span> 장애인·국가유공자</button>
+        <button class="toggle-btn" id="btn-none-situation" onclick="selectNone('situation')"><span class="ic">✅</span> 해당 사항 없음</button>
+      </div>
+      <div class="hint-text">💡 '해당 사항 없음' 선택 시 나머지 항목은 자동으로 해제됩니다.</div>
+      <div class="error-msg" id="error-situation">⚠️ 가구 및 특수 상황을 선택해 주세요.</div>
+    </div>
+
+    <!-- CARD 4: Field -->
+    <div class="card" id="card-field">
+      <div class="card-header">
+        <div class="card-title-wrap">
+          <div class="card-num" id="num-field">4</div>
+          <div>
+            <div class="card-title">가장 관심 있는 분야를 선택해 주세요</div>
+            <div class="card-subtitle">최대 3개까지 선택하실 수 있어요.</div>
+          </div>
+        </div>
+        <div class="check-badge" id="badge-field">✓ 선택됨</div>
+      </div>
+      <div class="btn-group" id="group-field">
+        <button class="toggle-btn" onclick="selectField('주거비 지원', this)"><span class="ic">🏠</span> 주거비 지원</button>
+        <button class="toggle-btn" onclick="selectField('취업·창업', this)"><span class="ic">🚀</span> 취업·창업</button>
+        <button class="toggle-btn" onclick="selectField('생활비·금융', this)"><span class="ic">💰</span> 생활비·금융</button>
+        <button class="toggle-btn" onclick="selectField('교육·학자금', this)"><span class="ic">📚</span> 교육·학자금</button>
+        <button class="toggle-btn" onclick="selectField('건강·마음돌봄', this)"><span class="ic">💚</span> 건강·마음돌봄</button>
+        <button class="toggle-btn" onclick="selectField('돌봄·육아', this)"><span class="ic">👶</span> 돌봄·육아</button>
+      </div>
+      <div class="hint-text">💡 최대 3개까지 선택 가능합니다.</div>
+      <div class="error-msg" id="error-field">⚠️ 관심 분야를 하나 이상 선택해 주세요.</div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-wrap">
+      <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+        <span class="sparkle">✨</span> 나한테 딱 맞는 정책은?
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==================== RESULT PAGE ==================== -->
+<section id="page-result" class="page">
+  <div class="result-header" id="result-header"></div>
+  <div class="result-list" id="result-list"></div>
+  <div style="max-width:760px;width:100%;text-align:center;margin-top:2rem;">
+    <button class="btn-back" onclick="goBack()">← 다른 정책 알아보기</button>
+  </div>
+</section>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
